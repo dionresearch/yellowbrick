@@ -23,6 +23,7 @@ import numpy as np
 
 from ..exceptions import ModelError
 from ..style.palettes import LINE_COLOR
+from ..style.palettes import color_palette
 from .base import ClassificationScoreVisualizer
 
 from scipy import interp
@@ -161,6 +162,11 @@ class ROCAUC(ClassificationScoreVisualizer):
         classes = np.unique(y)
         n_classes = len(classes)
 
+        if self.n_colors != n_classes:
+            self.n_colors = n_classes
+            self.colors = color_palette(n_colors=self.n_colors)
+
+
         # Store the false positive rate, true positive rate and curve info.
         self.fpr = dict()
         self.tpr = dict()
@@ -229,7 +235,7 @@ class ROCAUC(ClassificationScoreVisualizer):
         if self.macro:
             self.ax.plot(
                 self.fpr[MACRO], self.tpr[MACRO], linestyle="--",
-                color= self.colors[len(self.classes_)-1],
+                color= self.colors[len(self.classes_)+1],
                 label='macro-average ROC curve, AUC = {:0.2f}'.format(
                     self.roc_auc["macro"],
                 )

@@ -57,11 +57,11 @@ class ClassificationScoreVisualizer(ScoreVisualizer):
 
         # Set up classifier score visualization properties
         if classes is not None:
-            n_colors = len(classes)
+            self.n_colors = len(classes)
         else:
-            n_colors = None
+            self.n_colors = None
 
-        self.colors    = color_palette(kwargs.pop('colors', None), n_colors)
+        self.colors  = color_palette(palette=kwargs.pop('colors', None), n_colors=self.n_colors)
         self.classes_  = classes
 
     @property
