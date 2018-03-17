@@ -168,4 +168,5 @@ class TestTSNE(VisualTestCase, DatasetMixin):
         tsne = TSNEVisualizer(random_state=64)
         tsne.fit(X, y)
 
+        tol = 1 if six.PY3 else 20
         self.assert_images_similar(tsne, tol=0.1)
